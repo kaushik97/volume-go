@@ -64,3 +64,31 @@ func Unmute(outputdevice string) error {
 	_, err := execCmd(unmuteCmd(outputdevice))
 	return err
 }
+
+// SidetoneMute mutes the sidetone
+func SidetoneMute(inputdevice, cardnumber string) error {
+	args := []string{"amixer", "-c", cardnumber, "set", inputdevice, "mute"}
+	_, err := execCmd(args)
+	return err
+}
+
+// SidetoneUnmute unmutes the sidetone
+func SidetoneUnmute(inputdevice, cardnumber string) error {
+	args := []string{"amixer", "-c", cardnumber, "set", inputdevice, "unmute"}
+	_, err := execCmd(args)
+	return err
+}
+
+// PulseMute mutes the speaker only for voice application
+func PulseMute(sinkId string) error {
+	args := []string{"pacmd", "set-sink-input-mute", sinkId, "true"}
+	_, err := execCmd(args)
+	return err
+}
+
+// PulseUnmute unmutes the speaker only for voice application
+func PulseUnmute(sinkId string) error {
+	args := []string{"pacmd", "set-sink-input-mute", sinkId, "false"}
+	_, err := execCmd(args)
+	return err
+}
